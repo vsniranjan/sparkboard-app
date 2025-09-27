@@ -21,6 +21,8 @@ class Modal {
   addEventListeners() {
     this._modalBtn.addEventListener("click", this.open.bind(this));
     window.addEventListener("click", this.outsideClick.bind(this));
+    // Listening for 'closemodal' from ideaForm.js to close the model after submitting
+    document.addEventListener("closemodal", () => this.close());
   }
 }
 
