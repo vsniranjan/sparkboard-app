@@ -29,6 +29,10 @@ router.get("/:id", async (req, res) => {
 
 // Add an idea
 router.post("/", async (req, res) => {
+  if (!req?.body?.text || !req?.body?.tag || !req?.body?.username)
+    return res
+      .status(400)
+      .json({ success: false, error: "Something went wrong" });
   const idea = new Idea({
     text: req.body.text,
     tag: req.body.tag,

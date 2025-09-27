@@ -25,6 +25,11 @@ class IdeaList {
     }
   }
 
+  addIdeaToList(idea) {
+    this._ideas.push(idea);
+    this.render();
+  }
+
   getTagClass(tag) {
     tag = tag.toLowerCase();
     let tagClass = "";
@@ -49,7 +54,7 @@ class IdeaList {
           </h3>
           <p class="tag ${tagClass}">${idea.tag.toUpperCase()}</p>
           <p>
-            Posted on <span class="date">${idea.date}</span> by
+            Posted on <span class="date">${idea.date.slice(0, 10)}</span> by
             <span class="author">${idea.username}</span>
           </p>
         </div>
