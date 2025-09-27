@@ -46,9 +46,13 @@ class IdeaList {
     this._ideaListEl.innerHTML = this._ideas
       .map((idea) => {
         const tagClass = this.getTagClass(idea.tag);
+        const deleteBtn =
+          idea.username === localStorage.getItem("username")
+            ? '<button class="delete"><i class="fas fa-times"></i></button>'
+            : "";
         return `
-      <div class="card">
-          <button class="delete"><i class="fas fa-times"></i></button>
+      <div class="card" data-id="${idea._id}">
+          ${deleteBtn}
           <h3>
             ${idea.text}
           </h3>
@@ -61,6 +65,29 @@ class IdeaList {
       `;
       })
       .join("");
+    this.addEventListeners();
+  }
+
+  async deleteIdea(ideaId) {
+    try {
+      // Delete from server
+      const res = await IdeasApi.deleteIdea(ideaId);
+      // Delete from IdeaList
+      this._ideas.filter((idea) => idea._id != ideaId);
+      this.getIdeas();
+    } catch (error) {
+      alert("You can not delete this resource");
+    }
+  }
+
+  addEventListeners() {
+    this._ideaListEl.addEventListener("click", (event) => {
+      if (event.target.classList.contains("fa-times")) {
+        event.stopImmediatePropagation();
+        const ideaId = event.target.parentElement.parentElement.dataset.id;
+        this.deleteIdea(ideaId);
+      }
+    });
   }
 }
 
