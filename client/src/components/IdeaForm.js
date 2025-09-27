@@ -1,4 +1,4 @@
-class ideaForm {
+class IdeaForm {
   constructor() {
     this._formModal = document.querySelector("#form-modal");
   }
@@ -51,4 +51,4 @@ class ideaForm {
   }
 }
 
-export default ideaForm;
+export default IdeaForm;
